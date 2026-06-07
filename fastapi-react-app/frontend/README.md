@@ -1,73 +1,75 @@
-# React + TypeScript + Vite
+# OCR Text Extractor - Frontend Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend client for the OCR Text Extractor application, built as a Single Page Application (SPA) using React, TypeScript, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+It features a dual OCR extraction flow that integrates client-side browser-only processing with an optional FastAPI Python server backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Dual OCR Engine Selector**:
+  - **Local Mode**: Runs **Tesseract.js** in the browser. Fully private, fast, serverless.
+  - **Server Mode**: Connects to the **FastAPI** backend via pytesseract.
+- **Backend Connection Monitor**: Automatic, real-time connectivity checker. Shows a status dot (Online/Offline/Checking) and gracefully falls back to Local Mode if the server goes down.
+- **SQLite-backed OCR History**: Sidebar panel that fetches past scans from the backend, allows viewing historical text, and supports item deletion and history clearing.
+- **Drag-and-Drop Image Uploader**: Accepts PNG, JPEG, JPG, and WEBP formats with a strict 5MB size limit.
+- **Real-Time Progress Indicator**: Shows the percentage completion for client-side text recognition.
+- **Copy Text Action**: Quick copy button with dynamic "Copied!" checkmark feedback.
+- **Responsive Dark Design**: Styled with a deep slate color scheme and glassmorphism panels.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Scripts
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The project includes the following scripts defined in `package.json`:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Script | Command | Description |
+| :--- | :--- | :--- |
+| `dev` | `vite` | Starts the local development server with Hot Module Replacement (HMR). |
+| `build` | `tsc -b && vite build` | Compiles TypeScript and builds the application for production. |
+| `lint` | `eslint .` | Runs ESLint to check for code style issues and bugs. |
+| `preview` | `vite preview` | Previews the production build locally. |
+
+### Development Setup
+
+1. Make sure you have installed the dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open the application at [http://localhost:5173](http://localhost:5173).
+
+---
+
+## 📁 Code Structure
+
+```text
+src/
+├── components/
+│   └── Title.tsx           # A reusable page title component
+├── pages/
+│   └── ImageExtractor.tsx  # Main page containing OCR flow, file upload, connection checking, and state
+├── App.css                 # Application-wide global overrides
+├── App.tsx                 # Handles routing and wraps page layout
+├── index.css               # Tailwind CSS imports and global styles
+└── main.tsx                # Mounts the React application
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🛠️ Main Dependencies
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **[React 19](https://react.dev/)**: Frontend SPA core library.
+- **[Tesseract.js](https://tesseract.github.io/tesseract.js/)**: In-browser OCR library.
+- **[React Router DOM](https://reactrouter.com/)**: Routing controls.
+- **[Tailwind CSS v4](https://tailwindcss.com/)**: Utility-first styling framework.
+- **[TypeScript](https://www.typescriptlang.org/)**: Static type safety.
+- **[Vite](https://vite.dev/)**: Next-generation bundler and local server tool.

@@ -1,6 +1,5 @@
 // App.tsx
-import React from "react";
-import { Browserrouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ImageExtractor from "./pages/ImageExtractor";
 
 export default function App() {
